@@ -84,9 +84,10 @@ export const TransactionProvider = ({children}) => {
            await transactionHash.wait();
            setisLoading(false);
            console.log(`Success... ${transactionHash.hash}`);
-
            const transactionCount = await transactionContract.getTransactionCounter();
            settransactionCount(transactionCount.toNumber())
+
+           setFormData({adressTo: '', amount: '', keyword: '', message: ''})
 
         } catch (error) {
             console.log(error);
@@ -98,7 +99,7 @@ export const TransactionProvider = ({children}) => {
         checkIfWalletConnected()
     }, [])
     return (
-        <TransactionContext.Provider value={{connectWallet, currentAccount, formData, handleChange, sendTransaction}}>
+        <TransactionContext.Provider value={{connectWallet, currentAccount, formData, handleChange, sendTransaction, setFormData}}>
             {children}
         </TransactionContext.Provider>
     )
